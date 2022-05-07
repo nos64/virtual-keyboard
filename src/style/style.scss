@@ -1,0 +1,123 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../assets/fonts/Merriweather-Bold.ttf");
+}
+
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Merriweather', serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 25px;
+  padding: 20px 0;
+}
+
+.textarea {
+  width: 95%;
+  border-radius: 10px;
+  padding: 20px;
+  word-break: break-word;
+  resize: none;
+}
+
+.subtitle {
+  font-size: 20px;
+  padding: 20px 0;
+}
+
+.keyboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 7px 0;
+}
+
+.row {
+  display: grid;
+  gap: 3px;
+
+  &:nth-child(1) {
+    grid-template-columns: repeat(13, 1fr) 3fr;
+  }
+
+  &:nth-child(2) {
+    grid-template-columns: 1.5fr repeat(14, 1fr);
+  }
+
+  &:nth-child(3) {
+    grid-template-columns: 2fr repeat(11, 1fr) 2.5fr;
+  }
+
+  &:nth-child(4) {
+    grid-template-columns: 2fr repeat(13, 1fr) ;
+  }
+  &:nth-child(5) {
+    grid-template-columns: 1.5fr repeat(2, 1fr) 6.5fr 1fr 1.5fr repeat(3, 1fr);
+  }
+
+}
+.button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 3px;
+  min-width: 40px;
+  min-height: 40px;
+  line-height: 2.5em;
+  padding: 5px;
+  background-color: #575555;
+  color: #edf6fc;
+  transition: background-color .3s ease-in-out;
+  
+
+  &.button:hover,
+  &.button:active {
+  background-color: rgb(73, 70, 253);
+  cursor: pointer;
+  }
+
+  &.service {
+    background-color: #221f1f;
+  }
+
+}
+
+.sub-button {
+  position: absolute;
+  font-size: 10px;
+  top: 3px;
+  left: 3px;
+  line-height: 1.5em;
+}
+
+@keyframes changeColor {
+  from {background-color: white;}
+  50% {background: rgb(134, 134, 134);}
+  to {background: white;}
+  }

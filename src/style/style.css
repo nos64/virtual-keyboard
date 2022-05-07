@@ -1,0 +1,168 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url("../assets/fonts/Merriweather-Bold.ttf");
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-family: 'Merriweather', serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.title {
+  font-size: 25px;
+  padding: 20px 0;
+}
+
+.textarea {
+  width: 95%;
+  border-radius: 10px;
+  padding: 20px;
+  word-break: break-word;
+  resize: none;
+}
+
+.subtitle {
+  font-size: 20px;
+  padding: 20px 0;
+}
+
+.keyboard-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  gap: 7px 0;
+}
+
+.row {
+  display: -ms-grid;
+  display: grid;
+  gap: 3px;
+}
+
+.row:nth-child(1) {
+  -ms-grid-columns: (1fr)[13] 3fr;
+      grid-template-columns: repeat(13, 1fr) 3fr;
+}
+
+.row:nth-child(2) {
+  -ms-grid-columns: 1.5fr (1fr)[14];
+      grid-template-columns: 1.5fr repeat(14, 1fr);
+}
+
+.row:nth-child(3) {
+  -ms-grid-columns: 2fr (1fr)[11] 2.5fr;
+      grid-template-columns: 2fr repeat(11, 1fr) 2.5fr;
+}
+
+.row:nth-child(4) {
+  -ms-grid-columns: 2fr (1fr)[13];
+      grid-template-columns: 2fr repeat(13, 1fr);
+}
+
+.row:nth-child(5) {
+  -ms-grid-columns: 1.5fr (1fr)[2] 6.5fr 1fr 1.5fr (1fr)[3];
+      grid-template-columns: 1.5fr repeat(2, 1fr) 6.5fr 1fr 1.5fr repeat(3, 1fr);
+}
+
+.button {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  border-radius: 3px;
+  min-width: 40px;
+  min-height: 40px;
+  line-height: 2.5em;
+  padding: 5px;
+  background-color: #575555;
+  color: #edf6fc;
+  -webkit-transition: background-color .3s ease-in-out;
+  transition: background-color .3s ease-in-out;
+}
+
+.button.button:hover, .button.button:active {
+  background-color: #4946fd;
+  cursor: pointer;
+}
+
+.button.service {
+  background-color: #221f1f;
+}
+
+.sub-button {
+  position: absolute;
+  font-size: 10px;
+  top: 3px;
+  left: 3px;
+  line-height: 1.5em;
+}
+
+@-webkit-keyframes changeColor {
+  from {
+    background-color: white;
+  }
+  50% {
+    background: #868686;
+  }
+  to {
+    background: white;
+  }
+}
+
+@keyframes changeColor {
+  from {
+    background-color: white;
+  }
+  50% {
+    background: #868686;
+  }
+  to {
+    background: white;
+  }
+}
+/*# sourceMappingURL=style.css.map */
