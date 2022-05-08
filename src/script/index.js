@@ -1,177 +1,163 @@
 import {langKey} from './language.js';
+import {createWindow} from './createWindow.js';
+import {serviceBtn, showShift, lettersEn, lettersRu} from './createBtn.js';
+import {language} from './createKbd.js';
 
-// document.addEventListener('keydown', e => {
-//   keyboard.push(e.code);
-//   console.log('keyboard: ', keyboard);
-// })
 
-// const init = () {
-//   let out = '';
-//   keyboard.forEach(item => {
-//     out +=''
-//   })
-// }
-
-// document.addEventListener('keydown', e => {
-
-// })
-
-// class Keyboard {
-//   constructor() {
-//     this.buttons = [
-//       ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
-//       ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Delete'],
-//       ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
-//       ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
-//       ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'],
-//     ];
-//   }
-  
-//   createKeyboard() {
-//     const header = document.createElement('header');
-
-//     const containerHeader = document.createElement('div');
-//     containerHeader.className = 'container';
-
-//     const title = document.createElement('h1');
-//     title.className = 'title';
-
-//     containerHeader.append(this.title);
-//     header.append(this.containerHeader);
-//     document.body.append(header);
-
-//     const main = document.createElement('main');
-
-//     const containerMain = document.createElement('div');
-//     containerMain.className = 'container';
-
-//     const textarea = document.createElement('textarea');
-//     textarea.className = 'textarea';
-
-//     const subtitle = document.createElement('h2');
-//     subtitle.className = 'subtitle';
-
-    
-//     const keyboardInner = this.createButtons()
-
-//     containerMain.append(this.textarea, this.subtitle, this.keyboardInner);
-//     main.append(this.containerMain);
-//     document.body.append(main);
-//   }
-
-//   createButtons(language) {
-//     this.keys = [];
-
-//     const keyboardWrapper = document.createElement('div');
-//     keyboardWrapper.className = 'keyboard-wrapper';
-
-//     this.buttons.forEach(rows => {
-//       const row = document.createElement('div');
-//       row.className = 'row';
-//       rows.forEach(elem => {
-//         const button = document.createElement('div');
-//         button.className = 'button';
-//         button.textContent = elem;
-//         const setData () => {
-//           button.dataset = 
-//           Object.keys(langKey[language])
-//           .find(item => item)
-//         }
-//       })
-//     })
-//   }
-// }
-
-let language = 'en';
-// console.log((langKey[language]).find(item => item.code === 'Digit9'))
-// console.log(Object.values(langKey[language]).forEach(item => console.log(item.code)))
-// console.log(langKey[language][0].code)
-
-const buttonsKbd = [
-      ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
-      ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'],
-      ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'],
-      ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'],
-      ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'],
-    ];
-const serviceBtn =  ['Backspace', 'Tab', 'CapsLock', 'ShiftLeft','ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp', 'ShiftRight', 'Enter', 'Delete']
-
-const createBtn = ({symbol, shift, code}) => {
-      const button = document.createElement('div');
-      button.className = 'button';
-      button.dataset.code = code;
-      button.innerHTML = symbol;
-      if (serviceBtn.includes(button.dataset.code)) button.classList.add('service');
-      
-      const subButton = document.createElement('span');
-      subButton.className = 'sub-button';
-      subButton.innerHTML = shift;
-      
-      button.append(subButton);
-
-      return button;
+const capsLockBtn = document.querySelector('.button[data-code=\'CapsLock\''); 
+const leftShift = document.querySelector('.button[data-code=\'ShiftLeft\'');
+const rightShift = document.querySelector('.button[data-code=\'ShiftRight\'');
+let isShift = false;
+/**Фокус */
+const textarea = document.querySelector('.textarea');
+export const setFocus = () => {
+  textarea.focus()
 }
 
+/*Обработка нажатий и кликов* */  
+const buttons = document.querySelectorAll('.button');
 
-const createKeyboard = () => {
+document.addEventListener('keyup', e => {
+  e.preventDefault()
+  // setFocus()
+  buttons.forEach(element => {
+    if (element.dataset.code !== 'CapsLock') {
+      element.classList.remove('button-active')
+    }
+    if (element.dataset.code === 'ShiftLeft' || element.dataset.code === 'ShiftRight') isShift = false;
+  })
+})
+// buttons.forEach(btn => {
+//   btn.addEventListener('mouseout', e => {
+//     setFocus()
+//     buttons.forEach(elem => elem.classList.remove('button-active'));
+//   })
+// });
 
-  const keyboardWrapper = document.createElement('div');
-  keyboardWrapper.className = 'keyboard-wrapper';
-  const buttonsArray = [];
-  buttonsKbd.forEach(rows => {
-    const row = document.createElement('div');
-    row.className = 'row';
-
-    rows.forEach(btn => {
-      const btnObj = (langKey[language]).find(item => item.code === btn)
-      console.log('btnObj: ', btnObj);
-      const button = createBtn(btnObj);
-
-      row.append(button);
+buttons.forEach(btn => {
+  btn.addEventListener('click', e => {
+    // setFocus()
+    buttons.forEach(elem => {
+      if(elem.dataset.code !== 'CapsLock') elem.classList.remove('button-active');
     })
+    e.currentTarget.classList.add('button-active')
+    console.log(e.currentTarget.dataset)
+    // console.log(e.currentTarget)
+    // const code = e.currentTarget.dataset.code
+    // console.log('code: ', code);
 
-    keyboardWrapper.append(row);
+  })
+});
+
+document.addEventListener('keydown', e => {
+  e.preventDefault()
+  // console.log(e)
+  // setFocus()
+  buttons.forEach(elem => {
+    if(elem.dataset.code !== 'CapsLock') elem.classList.remove('button-active');
+  })
+  if (e.code !== 'CapsLock') {
+    document.querySelector(`.keyboard-wrapper .row .button[data-code=${e.code}`).classList.add('button-active')
+  }
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') isShift = true
+    
+  printSimbol(e);
+ 
+
+});
+let capsLock = false;
+let xy = '';
+let isCapsLock = false;
+
+
+
+//'CapsLock', 'ShiftLeft','ControlLeft', 'MetaLeft', 'AltLeft', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp', 'ShiftRight', 'Enter', 'Delete'
+function printSimbol(e) {
+  // let posCursor = textarea.selectionStart;
+  // const firstPart = textarea.value.slice(0, posCursor);
+  // const secondPart = textarea.value.slice(posCursor);
+
+  if (!serviceBtn.includes(e.code)) textarea.innerHTML+=e.key;
+  if (e.code === 'Backspace') funcDel()
+  if (e.code === 'Tab') textarea.innerHTML+='\t';
+  if (e.code === 'CapsLock') {
+    funcCL()
+    changeRegister()
+    if(!capsLockBtn.classList.contains('button-active')) capsLockBtn.classList.add('button-active')
+    else capsLockBtn.classList.remove('button-active')
+  }
+    changeRegister()
+  }
+    //   capsLockBtn.classList.add('button-active')
+    //   capsLock = true;
+    // } else if(capsLockBtn.classList.contains('button-active')) {
+    //   capsLockBtn.classList.remove('button-active')
+    
+
+
+function changeRegister() {
+  // console.log(isCapsLock)
+  langKey[language].forEach(item => {
+    const key = item;
+    if (isCapsLock) {
+      if (key.shift !== null) {
+        buttons.forEach(btn => {
+          if (lettersEn.includes(btn.dataset.code)) btn.style.textTransform = 'uppercase';
+        })
+      } 
+    } else if (!isCapsLock) {
+      if (key.shift !== null) {
+        buttons.forEach(btn => {
+          if (lettersRu.includes(btn.dataset.code)) btn.style.textTransform = 'lowercase';
+        })
+      } 
+    }
+    if (isShift) {
+      if (key.shift !== null) {
+        buttons.forEach(btn => {
+          if (lettersEn.includes(btn.dataset.code)) btn.style.textTransform = 'uppercase';
+        })
+      } else if (!isShift) {
+        if (key.shift !== null) {
+          buttons.forEach(btn => {
+            if (lettersRu.includes(btn.dataset.code)) btn.style.textTransform = 'lowercase';
+          })
+        } 
+      }
+    }
+
   })
 
-  return keyboardWrapper;
 }
 
 
-  const createWindow = (language) => {
-    const header = document.createElement('header');
-
-    const containerHeader = document.createElement('div');
-    containerHeader.className = 'container';
-
-    const title = document.createElement('h1');
-    title.className = 'title';
-    title.textContent = 'Microsoft Windows virtual keyboard';
-
-    containerHeader.append(title);
-    header.append(containerHeader);
-    document.body.append(header);
-
-    const main = document.createElement('main');
-
-    const containerMain = document.createElement('div');
-    containerMain.className = 'container';
-
-    const textarea = document.createElement('textarea');
-    textarea.className = 'textarea';
-
-    const subtitle = document.createElement('h2');
-    subtitle.className = 'subtitle';
-    subtitle.textContent = 'Press Shift+Ctrl to change language';
-
-    const keyboarFunc = createKeyboard()
-
-    containerMain.append(textarea, subtitle, keyboarFunc);
-    main.append(containerMain);
-    document.body.append(main);
-  }
-  
 
 
 
+//BackSpace
+function funcDel() {
+	let valu = textarea.innerHTML;
+	let x = textarea.innerHTML.length;
+	let y = 1;
+	let z = x-y;
+	textarea.innerHTML=valu.slice(0,z);
+}
 
-  createWindow()
+//CapsLock
+function funcCL() {
+  isCapsLock === false ? isCapsLock = true : isCapsLock = false
+}
+
+//Shift
+function funcShift() {
+  if (leftShift.classList.contains('button-active') || rightShift.classList.contains('button-active')) {
+    isShift = true
+  } else isShift = false
+}
+
+console.log('leftShift: ', leftShift);
+//Space
+function funcSpace() {
+	var valu = document.getElementById('display').innerHTML;
+	document.getElementById('display').innerHTML=valu+' ';
+}

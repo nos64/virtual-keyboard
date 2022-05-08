@@ -202,7 +202,7 @@ export const langKey = {
     },
     {
       symbol: '\'',
-      shift: '\'',
+      shift: '\"',
       code: 'Quote',
     },
     {
@@ -217,7 +217,7 @@ export const langKey = {
     },
     {
       symbol: '\\',
-      shift: '\\',
+      shift: '|',
       code: 'IntlBackslash',
     },
     {
@@ -550,7 +550,7 @@ export const langKey = {
     },
     {
       symbol: '\\',
-      shift: '\\',
+      shift: '/',
       code: 'IntlBackslash',
     },
     {
