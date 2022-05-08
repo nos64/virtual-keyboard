@@ -20,7 +20,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   font-family: 'Merriweather', serif;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -60,7 +60,7 @@ body {
 
 .row {
   display: grid;
-  gap: 3px;
+  gap: 5px;
 
   &:nth-child(1) {
     grid-template-columns: repeat(13, 1fr) 3fr;
@@ -86,14 +86,13 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
   border-radius: 5px;
-  min-width: 40px;
-  min-height: 40px;
-  line-height: 2.5em;
-  padding: 5px;
+  min-width: 50px;
+  min-height: 60px;
+  // padding: 5px;
   background-color: #575555;
-  color: #edf6fc;
+  color: #ffffff;
   box-shadow: 5px 5px 10px #474343;
   cursor: pointer;
   transition: background-color .3s ease-in-out;
@@ -116,10 +115,11 @@ body {
 
 .sub-button {
   position: absolute;
-  font-size: 10px;
+  font-size: 12px;
   top: 3px;
   left: 3px;
   line-height: 1.5em;
+  color: #d4c8c8;
 }
 
 @keyframes changeColor {
