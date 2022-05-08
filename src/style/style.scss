@@ -38,6 +38,7 @@ body {
 }
 
 .textarea {
+  min-height: 200px;
   width: 95%;
   border-radius: 10px;
   padding: 20px;
@@ -86,20 +87,25 @@ body {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  border-radius: 3px;
+  border-radius: 5px;
   min-width: 40px;
   min-height: 40px;
   line-height: 2.5em;
   padding: 5px;
   background-color: #575555;
   color: #edf6fc;
+  box-shadow: 5px 5px 10px #474343;
+  cursor: pointer;
   transition: background-color .3s ease-in-out;
   
+  &.button:hover {
+    background-color: #807e7e;
+  }
 
-  &.button:hover,
   &.button:active {
   background-color: rgb(73, 70, 253);
-  cursor: pointer;
+  box-shadow: 1px 1px 2px #fff8f8, -1px -1px 2px #474343;
+  
   }
 
   &.service {
