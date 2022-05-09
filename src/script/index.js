@@ -1,6 +1,7 @@
 import langKey from './language.js';
 import createWindow from './createWindow.js';
 import { serviceBtn, lettersRu } from './createBtn.js';
+
 let language = 'ru';
 createWindow();
 
