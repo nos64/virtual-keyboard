@@ -28,6 +28,11 @@ export const createKeyboard = () => {
         const button = createBtn(btnObj);
         row.append(button);
         allButtons.push(button);
+      } else {
+        const btnObj = langKey['en'].find((item) => item.code === btn);
+        const button = createBtn(btnObj);
+        row.append(button);
+        allButtons.push(button);
       }
     });
     keyboardWrapper.append(row);
