@@ -7,10 +7,10 @@ let language = 'ru';
 const keyboardWrapper = document.querySelector('.keyboard-wrapper');
 const buttons = document.querySelectorAll('.button');
 const capsLockBtn = document.querySelector('.button[data-code=\'CapsLock\'');
-const allShift = document.querySelectorAll('.button[data-code=\'CapsLock\'');
+const rightShift = document.querySelector('.button[data-code=\'ShiftRight\'');
+const leftShift = document.querySelector('.button[data-code=\'ShiftLeft\'');
 const textarea = document.querySelector('.textarea');
 let isCapsLock = false;
-let isShift = false;
 
 const capsLockKey = () => {
   const caps = isCapsLock === false ? isCapsLock = true : isCapsLock = false;
@@ -35,24 +35,6 @@ const capsLockKey = () => {
   });
 };
 
-const shiftKey = () => {
-  const shift = isShift === false ? isShift = true : isShift = false;
-  buttons.forEach((btn) => {
-    if (!serviceBtn.includes(btn.dataset.code)) {
-      const button = btn;
-      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      if (shift) button.innerHTML = btnObj.shift;
-      else button.innerHTML = btnObj.symbol;
-    }
-  });
-};
-
-document.addEventListener('keyup', (e) => {
-  if (e.shiftKey) {
-    shiftKey();
-  }
-});
-
 function printSymbol(key) {
   if (!serviceBtn.includes(key.dataset.code)) textarea.value += key.innerHTML;
   if (key.dataset.code === 'ArrowLeft') textarea.value += '←';
@@ -69,8 +51,41 @@ function printSymbol(key) {
     textarea.setRangeText('', textarea.selectionStart, textarea.selectionEnd + 1);
   } else if (key.dataset.code === 'Space') textarea.value += '';
   else if (key.dataset.code === 'CapsLock') capsLockKey();
-  else if (key.dataset.code === 'ShiftLeft' || key.dataset.code === 'ShiftRight') shiftKey();
 }
+
+const keydownShift = () => {
+  buttons.forEach((btn) => {
+    if (!serviceBtn.includes(btn.dataset.code)) {
+      const button = btn;
+      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+      button.innerHTML = btnObj.shift;
+    }
+  });
+};
+
+const keyupShift = () => {
+  buttons.forEach((btn) => {
+    if (!serviceBtn.includes(btn.dataset.code)) {
+      const button = btn;
+      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+      if (button.innerHTML === btnObj.shift) button.innerHTML = btnObj.symbol;
+    }
+  });
+};
+
+document.addEventListener('keydown', (e) => {
+  e.preventDefault();
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+    keydownShift();
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  e.preventDefault();
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+    keyupShift();
+  }
+});
 
 /* Переключение языка */
 const changeLanguage = (lang) => {
@@ -101,27 +116,23 @@ function getLocalStorageLang() {
   }
 }
 
-/* Обработка нажатий и кликов* */
+/* Обработка нажатий и кликов */
 document.addEventListener('keydown', (e) => {
   e.preventDefault();
-  // setFocus();
   buttons.forEach((btn) => {
     if (e.code === btn.dataset.code) {
       btn.classList.add('button-active');
       printSymbol(btn);
     }
-    // if (btn.dataset.code === 'ShiftLeft' || btn.dataset.code === 'ShiftRight') isShift = true;
   });
 });
 
 document.addEventListener('keyup', (e) => {
   e.preventDefault();
-  // setFocus();
   buttons.forEach((btn) => {
     if (btn.dataset.code !== 'CapsLock') {
       btn.classList.remove('button-active');
     }
-    // if (btn.dataset.code === 'ShiftLeft' || btn.dataset.code === 'ShiftRight') isShift = false;
   });
 });
 
@@ -143,12 +154,31 @@ keyboardWrapper.addEventListener('mouseup', (e) => {
   });
 });
 
-allShift.forEach((btn) => {
-  btn.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    btn.classList.add('button-active');
-    shiftKey();
+const mouseDownShift = (e) => {
+  e.preventDefault();
+  buttons.forEach((btn) => {
+    if (!serviceBtn.includes(btn.dataset.code)) {
+      const button = btn;
+      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+      button.innerHTML = btnObj.shift;
+    }
   });
-});
+};
+
+const mouseUpShift = (e) => {
+  e.preventDefault();
+  buttons.forEach((btn) => {
+    if (!serviceBtn.includes(btn.dataset.code)) {
+      const button = btn;
+      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+      button.innerHTML = btnObj.symbol;
+    }
+  });
+};
+
+leftShift.addEventListener('mouseup', mouseUpShift);
+leftShift.addEventListener('mousedown', mouseDownShift);
+rightShift.addEventListener('mouseup', mouseUpShift);
+rightShift.addEventListener('mousedown', mouseDownShift);
 
 window.addEventListener('load', getLocalStorageLang);

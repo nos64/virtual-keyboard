@@ -24,7 +24,7 @@ const createWindow = () => {
 
   const subtitle = document.createElement('h2');
   subtitle.className = 'subtitle';
-  subtitle.textContent = 'Press Shift-left+Ctrl-left to change language';
+  subtitle.textContent = 'Press Shift-left + Ctrl-left to change language';
 
   const keyboardFunc = createKeyboard();
 
