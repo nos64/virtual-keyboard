@@ -34,5 +34,3 @@ const createWindow = () => {
 };
 
 export default createWindow;
-
-createWindow();

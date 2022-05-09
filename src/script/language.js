@@ -202,7 +202,7 @@ const langKey = {
     },
     {
       symbol: '\'',
-      shift: '\"',
+      shift: '"',
       code: 'Quote',
     },
     {

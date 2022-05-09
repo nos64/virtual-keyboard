@@ -1,6 +1,5 @@
 import { createBtn } from './createBtn.js';
 import langKey from './language.js';
-// import { language } from './index.js';
 
 const buttonsKbd = [
   ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'],
@@ -23,12 +22,12 @@ export const createKeyboard = () => {
         const btnObj = langKey['ru'].find((item) => item.code === btn);
         const button = createBtn(btnObj);
         row.append(button);
-        allButtons.push(button)
+        allButtons.push(button);
       } else if (localStorage.getItem('language') === 'en') {
         const btnObj = langKey['en'].find((item) => item.code === btn);
         const button = createBtn(btnObj);
         row.append(button);
-        allButtons.push(button)
+        allButtons.push(button);
       }
     });
     keyboardWrapper.append(row);
