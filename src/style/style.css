@@ -139,12 +139,12 @@ body {
   background-color: #807e7e;
 }
 
-.button-active,
+/* .button-active,
 .button:active {
   background-color: #4946fd;
   -webkit-box-shadow: 1px 1px 2px #fff8f8, -1px -1px 2px #474343;
           box-shadow: 1px 1px 2px #fff8f8, -1px -1px 2px #474343;
-}
+} */
 
 .service {
   background-color: #221f1f;
@@ -174,17 +174,6 @@ body {
   line-height: 1.5em;
   color: #d4c8c8;
 }
-
-.sub-button-active {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  color: #ffffff;
-}
-
-
 
 @-webkit-keyframes changeColor {
   from {

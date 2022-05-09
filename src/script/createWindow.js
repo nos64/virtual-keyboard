@@ -1,6 +1,6 @@
-import { createKeyboard } from "./createKbd.js";
+import { createKeyboard } from './createKbd.js';
 
-export const createWindow = () => {
+const createWindow = () => {
   const header = document.createElement('header');
 
   const containerHeader = document.createElement('div');
@@ -26,11 +26,13 @@ export const createWindow = () => {
   subtitle.className = 'subtitle';
   subtitle.textContent = 'Press Shift-left+Ctrl-left to change language';
 
-  const keyboarFunc = createKeyboard()
+  const keyboardFunc = createKeyboard();
 
-  containerMain.append(textarea, subtitle, keyboarFunc);
+  containerMain.append(textarea, subtitle, keyboardFunc);
   main.append(containerMain);
   document.body.append(main);
-}
+};
 
-createWindow()
+export default createWindow;
+
+createWindow();

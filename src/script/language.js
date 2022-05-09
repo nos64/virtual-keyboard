@@ -1,5 +1,5 @@
-export const langKey = {
-  'en': [
+const langKey = {
+  en: [
     {
       symbol: '`',
       shift: '~',
@@ -289,7 +289,7 @@ export const langKey = {
       symbol: 'Win',
       shift: null,
       code: 'MetaLeft',
-    },  
+    },
     {
       symbol: 'Alt',
       shift: null,
@@ -327,11 +327,11 @@ export const langKey = {
     },
   ],
 
-  'ru': [
+  ru: [
     {
-    symbol: 'ё',
-    shift: 'Ё',
-    code: 'Backquote',
+      symbol: 'ё',
+      shift: 'Ё',
+      code: 'Backquote',
     },
     {
       symbol: '1',
@@ -653,5 +653,7 @@ export const langKey = {
       shift: null,
       code: 'ControlRight',
     },
-  ]
-}
+  ],
+};
+
+export default langKey;

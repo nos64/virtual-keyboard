@@ -1,9 +1,7 @@
-import { langKey } from "./language.js";
-
-let language = 'en';
+import { langKey } from './language.js';
 
 const setLocalStorageLang = () => {
-  localStorage.setItem('language', language)
+  localStorage.setItem('language', language);
 };
 
 const getLocalStorageLang = () => {
