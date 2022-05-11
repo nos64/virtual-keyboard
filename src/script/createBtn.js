@@ -7,7 +7,7 @@ export const createBtn = ({ symbol, code }) => {
   const button = document.createElement('div');
   button.className = 'button';
   button.dataset.code = code;
-  button.innerHTML = symbol;
+  button.textContent = symbol;
   if (serviceBtn.includes(button.dataset.code)) button.classList.add('service');
   return button;
 };

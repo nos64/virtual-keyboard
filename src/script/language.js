@@ -464,7 +464,7 @@ const langKey = {
       code: 'BracketRight',
     },
     {
-      symbol: '&bsol;',
+      symbol: '\\',
       shift: '/',
       code: 'Backslash',
     },
@@ -599,7 +599,7 @@ const langKey = {
       code: 'Slash',
     },
     {
-      symbol: '&uarr;',
+      symbol: '↑',
       shift: null,
       code: 'ArrowUp',
     },
@@ -634,17 +634,17 @@ const langKey = {
       code: 'AltRight',
     },
     {
-      symbol: '&larr;',
+      symbol: '←',
       shift: null,
       code: 'ArrowLeft',
     },
     {
-      symbol: '&darr;',
+      symbol: '↓',
       shift: null,
       code: 'ArrowDown',
     },
     {
-      symbol: '&rarr;',
+      symbol: '→',
       shift: null,
       code: 'ArrowRight',
     },
