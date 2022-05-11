@@ -1,6 +1,8 @@
 import langKey from './language.js';
 import createWindow from './createWindow.js';
-import { serviceBtn, lettersRu } from './createBtn.js';
+import {
+  serviceBtn, lettersRu, lettersEn, showShift,
+} from './createBtn.js';
 
 createWindow();
 let language = 'ru';
@@ -39,7 +41,7 @@ const capsLockKey = () => {
   });
 };
 
-function printSymbol(key) {
+const printSymbol = (key) => {
   if (!serviceBtn.includes(key.dataset.code)) textarea.value += key.textContent;
   if (key.dataset.code === 'ArrowLeft') textarea.value += '←';
   else if (key.dataset.code === 'ArrowRight') textarea.value += '→';
@@ -55,41 +57,47 @@ function printSymbol(key) {
     textarea.setRangeText('', textarea.selectionStart, textarea.selectionEnd + 1);
   } else if (key.dataset.code === 'Space') textarea.value += '';
   else if (key.dataset.code === 'CapsLock') capsLockKey();
-}
+};
 
 const keydownShift = () => {
   buttons.forEach((btn) => {
-    if (!serviceBtn.includes(btn.dataset.code)) {
-      const button = btn;
-      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.textContent = btnObj.shift;
+    const button = btn;
+    const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+    if (language === 'ru') {
+      if (isCapsLock) {
+        if (lettersRu.includes(btn.dataset.code)) {
+          button.textContent = btn.textContent.toLowerCase();
+        } else if (showShift.includes(btn.dataset.code)) button.textContent = btnObj.shift;
+      } else if (!serviceBtn.includes(btn.dataset.code)) button.textContent = btnObj.shift;
+    } else if (language === 'en') {
+      if (isCapsLock) {
+        if (lettersEn.includes(btn.dataset.code)) {
+          button.textContent = btn.textContent.toLowerCase();
+        } else if (showShift.includes(btn.dataset.code)) button.textContent = btnObj.shift;
+      } else if (!serviceBtn.includes(btn.dataset.code)) button.textContent = btnObj.shift;
     }
   });
 };
 
 const keyupShift = () => {
   buttons.forEach((btn) => {
-    if (!serviceBtn.includes(btn.dataset.code)) {
-      const button = btn;
-      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      if (button.textContent === btnObj.shift) button.textContent = btnObj.symbol;
+    const button = btn;
+    const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
+    if (language === 'ru') {
+      if (isCapsLock) {
+        if (lettersRu.includes(btn.dataset.code)) {
+          button.textContent = btn.textContent.toUpperCase();
+        } else if (showShift.includes(btn.dataset.code)) button.textContent = btnObj.symbol;
+      } else if (!serviceBtn.includes(btn.dataset.code)) button.textContent = btnObj.symbol;
+    } else if (language === 'en') {
+      if (isCapsLock) {
+        if (lettersEn.includes(btn.dataset.code)) {
+          button.textContent = btn.textContent.toUpperCase();
+        } else if (showShift.includes(btn.dataset.code)) button.textContent = btnObj.symbol;
+      } else if (!serviceBtn.includes(btn.dataset.code)) button.textContent = btnObj.symbol;
     }
   });
 };
-
-document.addEventListener('keydown', (e) => {
-  e.preventDefault();
-  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-    keydownShift();
-  }
-});
-
-document.addEventListener('keyup', (e) => {
-  e.preventDefault();
-  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
-    keyupShift();
-  }
-});
 
 /* Переключение языка */
 const changeLanguage = (lang) => {
@@ -100,6 +108,7 @@ const changeLanguage = (lang) => {
     button.key = btnObj.symbol;
     button.classList.remove('button-active');
   });
+  isCapsLock = false;
 };
 
 document.addEventListener('keydown', (e) => {
@@ -123,6 +132,7 @@ function getLocalStorageLang() {
 /* Обработка нажатий и кликов */
 document.addEventListener('keydown', (e) => {
   e.preventDefault();
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') keydownShift();
   buttons.forEach((btn) => {
     if (e.code === btn.dataset.code) {
       btn.classList.add('button-active');
@@ -133,6 +143,7 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('keyup', (e) => {
   e.preventDefault();
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') keyupShift();
   buttons.forEach((btn) => {
     if (btn.dataset.code !== 'CapsLock') {
       btn.classList.remove('button-active');
@@ -158,31 +169,9 @@ keyboardWrapper.addEventListener('mouseup', (e) => {
   });
 });
 
-const mouseDownShift = (e) => {
-  e.preventDefault();
-  buttons.forEach((btn) => {
-    if (!serviceBtn.includes(btn.dataset.code)) {
-      const button = btn;
-      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.textContent = btnObj.shift;
-    }
-  });
-};
-
-const mouseUpShift = (e) => {
-  e.preventDefault();
-  buttons.forEach((btn) => {
-    if (!serviceBtn.includes(btn.dataset.code)) {
-      const button = btn;
-      const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.textContent = btnObj.symbol;
-    }
-  });
-};
-
-leftShift.addEventListener('mouseup', mouseUpShift);
-leftShift.addEventListener('mousedown', mouseDownShift);
-rightShift.addEventListener('mouseup', mouseUpShift);
-rightShift.addEventListener('mousedown', mouseDownShift);
+leftShift.addEventListener('mouseup', keyupShift);
+leftShift.addEventListener('mousedown', keydownShift);
+rightShift.addEventListener('mouseup', keyupShift);
+rightShift.addEventListener('mousedown', keydownShift);
 
 window.addEventListener('load', getLocalStorageLang);

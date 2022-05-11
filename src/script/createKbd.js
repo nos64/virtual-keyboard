@@ -19,17 +19,17 @@ export const createKeyboard = () => {
 
     rows.forEach((btn) => {
       if (localStorage.getItem('language') === 'ru') {
-        const btnObj = langKey['ru'].find((item) => item.code === btn);
+        const btnObj = langKey.ru.find((item) => item.code === btn);
         const button = createBtn(btnObj);
         row.append(button);
         allButtons.push(button);
       } else if (localStorage.getItem('language') === 'en') {
-        const btnObj = langKey['en'].find((item) => item.code === btn);
+        const btnObj = langKey.en.find((item) => item.code === btn);
         const button = createBtn(btnObj);
         row.append(button);
         allButtons.push(button);
       } else {
-        const btnObj = langKey['en'].find((item) => item.code === btn);
+        const btnObj = langKey.en.find((item) => item.code === btn);
         const button = createBtn(btnObj);
         row.append(button);
         allButtons.push(button);
