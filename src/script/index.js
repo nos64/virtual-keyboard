@@ -2,9 +2,8 @@ import langKey from './language.js';
 import createWindow from './createWindow.js';
 import { serviceBtn, lettersRu } from './createBtn.js';
 
-let language = 'ru';
 createWindow();
-
+let language = 'ru';
 const keyboardWrapper = document.querySelector('.keyboard-wrapper');
 const buttons = document.querySelectorAll('.button');
 const capsLockBtn = document.querySelector('.button[data-code=\'CapsLock\'');
@@ -21,7 +20,9 @@ const capsLockKey = () => {
       if (item.shift !== null) {
         buttons.forEach((btn) => {
           const button = btn;
-          if (lettersRu.includes(btn.dataset.code)) button.innerHTML = btn.innerHTML.toUpperCase();
+          if (lettersRu.includes(btn.dataset.code)) {
+            button.textContent = btn.textContent.toUpperCase();
+          }
         });
       }
     } else {
@@ -29,7 +30,9 @@ const capsLockKey = () => {
       if (item.shift !== null) {
         buttons.forEach((btn) => {
           const button = btn;
-          if (lettersRu.includes(btn.dataset.code)) button.innerHTML = btn.innerHTML.toLowerCase();
+          if (lettersRu.includes(btn.dataset.code)) {
+            button.textContent = btn.textContent.toLowerCase();
+          }
         });
       }
     }
@@ -37,7 +40,7 @@ const capsLockKey = () => {
 };
 
 function printSymbol(key) {
-  if (!serviceBtn.includes(key.dataset.code)) textarea.value += key.innerHTML;
+  if (!serviceBtn.includes(key.dataset.code)) textarea.value += key.textContent;
   if (key.dataset.code === 'ArrowLeft') textarea.value += '←';
   else if (key.dataset.code === 'ArrowRight') textarea.value += '→';
   else if (key.dataset.code === 'ArrowUp') textarea.value += '↑';
@@ -59,7 +62,7 @@ const keydownShift = () => {
     if (!serviceBtn.includes(btn.dataset.code)) {
       const button = btn;
       const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.innerHTML = btnObj.shift;
+      button.textContent = btnObj.shift;
     }
   });
 };
@@ -69,7 +72,7 @@ const keyupShift = () => {
     if (!serviceBtn.includes(btn.dataset.code)) {
       const button = btn;
       const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      if (button.innerHTML === btnObj.shift) button.innerHTML = btnObj.symbol;
+      if (button.textContent === btnObj.shift) button.textContent = btnObj.symbol;
     }
   });
 };
@@ -93,7 +96,7 @@ const changeLanguage = (lang) => {
   buttons.forEach((btn) => {
     const button = btn;
     const btnObj = langKey[lang].find((item) => item.code === btn.dataset.code);
-    button.innerHTML = btnObj.symbol;
+    button.textContent = btnObj.symbol;
     button.key = btnObj.symbol;
     button.classList.remove('button-active');
   });
@@ -161,7 +164,7 @@ const mouseDownShift = (e) => {
     if (!serviceBtn.includes(btn.dataset.code)) {
       const button = btn;
       const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.innerHTML = btnObj.shift;
+      button.textContent = btnObj.shift;
     }
   });
 };
@@ -172,7 +175,7 @@ const mouseUpShift = (e) => {
     if (!serviceBtn.includes(btn.dataset.code)) {
       const button = btn;
       const btnObj = langKey[language].find((item) => item.code === btn.dataset.code);
-      button.innerHTML = btnObj.symbol;
+      button.textContent = btnObj.symbol;
     }
   });
 };
